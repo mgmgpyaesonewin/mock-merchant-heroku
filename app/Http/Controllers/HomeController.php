@@ -13,14 +13,14 @@ class HomeController extends Controller
 
     public function checkout()
     {
-        $total = collect(session()->get('items'))->pluck('amount')->sum();
+        $amount = collect(session()->get('items'))->pluck('amount')->sum();
 
         $items = session()->get('items', []);
 
         $data = [
             'merchant_id' => config('wppg.merchant_id'),
             'order_id' => rand(100, 999),
-            'total' => $total,
+            'amount' => $amount,
             'backend_result_url' => config('wppg.backend_result_url'),
             'merchant_reference_id' => "wave-" . rand(1000000, 9999999)
         ];

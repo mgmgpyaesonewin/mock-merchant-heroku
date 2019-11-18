@@ -30,7 +30,7 @@
         <tr>
             <td></td>
             <td>Total</td>
-            <td>{{ $data['total'] }}</td>
+            <td>{{ $data['amount'] }}</td>
         </tr>
     </table>
 
@@ -40,11 +40,12 @@
         <input type="hidden" name="merchant_reference_id" value="{{ $data['merchant_reference_id'] }}">
         <input type="hidden" name="frontend_result_url" value="{{ config('wppg.frontend_result_url') }}">
         <input type="hidden" name="backend_result_url" value="{{ $data['backend_result_url'] }}">
-        <input type="hidden" name="total" value="{{ $data['total'] }}">
+        <input type="hidden" name="amount" value="{{ $data['amount'] }}">
         <input type="hidden" name="payment_description" value="Order From Wave Merchant">
         <input type="hidden" name="merchant_name" value="{{ config('app.name') }}">
         <input type="hidden" name="items" value="{{ json_encode(session()->get('items')) }}">
         <input type="hidden" name="hash" value="{{ $hash }}">
+        <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
         <button class="btn btn-primary">Pay with Wave</button>
     </form>
 @endsection
