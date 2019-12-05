@@ -34,7 +34,7 @@
         </tr>
     </table>
 
-    <form action="{{ config('wppg.url') }}" method="POST">
+    <form action="{{ config('wppg.url') }}" method="POST" id="pww-form">
         <input type="hidden" name="merchant_id" value="{{ $data['merchant_id'] }}">
         <input type="hidden" name="order_id" value="{{ $data['order_id'] }}">
         <input type="hidden" name="merchant_reference_id" value="{{ $data['merchant_reference_id'] }}">
@@ -45,7 +45,17 @@
         <input type="hidden" name="merchant_name" value="{{ config('app.name') }}">
         <input type="hidden" name="items" value="{{ json_encode(session()->get('items')) }}">
         <input type="hidden" name="hash" value="{{ $hash }}">
-        <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
-        <button class="btn btn-primary">Pay with Wave</button>
+
+        <div class="d-flex">
+            <div class="align-self-end">
+                <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
+            </div>
+
+            <div class="ml-4">
+                <a href="#" onclick="event.preventDefault(); document.getElementById('pww-form').submit();">
+                    <img src="{{ asset('pww.svg') }}" alt="Pay with Wave Logo" class="pww-logo">
+                </a>
+            </div>
+        </div>
     </form>
 @endsection
