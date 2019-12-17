@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
+Route::get("callback", function(Request $request) {
+    logger()->error($request->all());
+});
 
 Route::post('add-to-cart', function(Request $request) {
     session()->push('items',['name' => $request->name, 'amount' => $request->amount]);
