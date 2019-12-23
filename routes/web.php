@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-Route::get("callback", function(Request $request) {
+Route::any("callback", function(Request $request) {
     logger()->error($request->all());
 });
 
