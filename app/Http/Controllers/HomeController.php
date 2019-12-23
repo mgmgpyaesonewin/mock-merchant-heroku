@@ -18,6 +18,7 @@ class HomeController extends Controller
         $items = session()->get('items', []);
 
         $data = [
+            'timeToLiveSeconds' => 5000,
             'merchant_id' => config('wppg.merchant_id'),
             'order_id' => rand(100, 999),
             'amount' => $amount,
