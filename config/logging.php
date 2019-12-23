@@ -89,6 +89,13 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
+        'callback' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/callback.log'),
+            'level' => 'debug',
+            'ignore_exceptions' => false,
+        ],
     ],
 
 ];

@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 Route::any("callback", function(Request $request) {
-    logger()->error($request->all());
+    Log::channel('callback')->error($request->all());
 });
 
 Route::post('add-to-cart', function(Request $request) {
