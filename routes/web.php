@@ -19,11 +19,6 @@ Route::get('clear-cart', function(Request $request) {
     return back();
 });
 
-Route::get('checkout', "HomeController@checkout");
-
-Route::get('dd', function() {
-    dd(session()->all());
-    session()->flush();
-});
+Route::get('checkout', "HomeController@checkout");;
 
 Route::get('/', 'HomeController@index')->name('home');
