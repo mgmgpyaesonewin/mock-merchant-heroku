@@ -48,13 +48,13 @@ class HomeController extends Controller
         $hash = $this->hash($data, config('wppg.secret_key'));
 
         $client = new Client([
-            'http_errors' => false
+            'http_errors' => false,
+            'verify' => 'false'
         ]);
 
         $response = $client->request('post', config('wppg.url'), [
             'headers' => [
                 'Accept' => "application/json",
-                'verify' => 'false'
             ],
             'form_params' => [
                 "timeToLiveSeconds" => $data['timeToLiveSeconds'],
