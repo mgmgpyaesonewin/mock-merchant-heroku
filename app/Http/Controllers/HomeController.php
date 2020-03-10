@@ -49,7 +49,7 @@ class HomeController extends Controller
 
         $client = new Client([
             'http_errors' => false,
-            'verify' => 'false'
+            'verify' => false
         ]);
 
         $response = $client->request('post', config('wppg.url'), [
