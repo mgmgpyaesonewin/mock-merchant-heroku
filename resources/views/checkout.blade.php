@@ -1,6 +1,13 @@
 @extends('layout')
 
 @section('content')
+
+    @if(session()->has('error'))
+        <div class="alert alert-error">
+            <p>{{ $error }}</p>
+        </div>
+    @endif
+
     <h3>Checkout</h3>
 
     <table class="table table-hover table-bordered">
@@ -34,20 +41,15 @@
         </tr>
     </table>
 
-    <form action="{{ config('wppg.url') }}" method="POST" id="pww-form">
-        <input type="hidden" name="timeToLiveSeconds" value="{{ $data['timeToLiveSeconds'] }}">
-        <input type="hidden" name="merchant_id" value="{{ $data['merchant_id'] }}">
-        <input type="hidden" name="order_id" value="{{ $data['order_id'] }}">
-        <input type="hidden" name="merchant_reference_id" value="{{ $data['merchant_reference_id'] }}">
-        <input type="hidden" name="frontend_result_url" value="{{ config('wppg.frontend_result_url') }}">
-        <input type="hidden" name="backend_result_url" value="{{ $data['backend_result_url'] }}">
-        <input type="hidden" name="amount" value="{{ $data['amount'] }}">
-        <input type="hidden" name="payment_description" value="Order From Wave Merchant">
-        <input type="hidden" name="merchant_name" value="{{ config('app.name') }}">
-        <input type="hidden" name="items" value="{{ json_encode(session()->get('items')) }}">
-        <input type="hidden" name="hash" value="{{ $hash }}">
+    <form action="{{ url('checkout') }}" method="POST" id="pww-form">
+
+        @csrf
 
         <div class="d-flex">
+            <div class="align-self-end mr-4">
+                <a href="{{ url('/') }}" class="btn btn-primary">Home</a>
+            </div>
+
             <div class="align-self-end">
                 <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
             </div>

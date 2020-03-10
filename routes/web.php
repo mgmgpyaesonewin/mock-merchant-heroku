@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 Route::any("callback", function(Request $request) {
@@ -19,6 +18,8 @@ Route::get('clear-cart', function(Request $request) {
     return back();
 });
 
-Route::get('checkout', "HomeController@checkout");;
+Route::post('checkout', "HomeController@postCheckout");
+Route::get('checkout', "HomeController@checkout");
+
 
 Route::get('/', 'HomeController@index')->name('home');
