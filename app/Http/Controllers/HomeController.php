@@ -54,7 +54,7 @@ class HomeController extends Controller
         $response = $client->request('post', config('wppg.url'), [
             'headers' => [
                 'Accept' => "application/json",
-                ''
+                'verify' => 'false'
             ],
             'form_params' => [
                 "timeToLiveSeconds" => $data['timeToLiveSeconds'],
