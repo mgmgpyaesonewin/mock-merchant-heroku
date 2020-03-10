@@ -74,7 +74,7 @@ class HomeController extends Controller
         $result = json_decode($response->getBody()->getContents());
 
         if ($response->getStatusCode() === 200) {
-            return redirect('https://pww.test/authenticate?transaction_id=' . $result->transaction_id);
+            return redirect('https://' . config('wppg.url') . '/authenticate?transaction_id=' . $result->transaction_id);
         }
 
         session()->flash('error', $result->message);
