@@ -4,7 +4,7 @@
 
     @if(session()->has('error'))
         <div class="alert alert-error">
-            <p>{{ $error }}</p>
+            <p>{{ session()->get('error') }}</p>
         </div>
     @endif
 
