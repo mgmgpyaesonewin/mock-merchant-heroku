@@ -57,7 +57,8 @@
     </div>
 
     <div class="mt-4">
-        <a href="{{ url('checkout') }}" class="btn btn-success">Checkout</a>
+        <a href="{{ url('web/checkout') }}" class="btn btn-outline-success">Web Checkout</a>
+        <a href="{{ url('api/checkout') }}" class="btn btn-outline-primary">API Checkout</a>
         <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
     </div>
 @endsection

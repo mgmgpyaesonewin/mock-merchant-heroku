@@ -18,8 +18,10 @@ Route::get('clear-cart', function(Request $request) {
     return back();
 });
 
-Route::post('checkout', "HomeController@postCheckout");
-Route::get('checkout', "HomeController@checkout");
+Route::get('web/checkout', "HomeController@webCheckout");
+
+Route::get('api/checkout', "HomeController@apiCheckout");
+Route::post('api/checkout', "HomeController@postApiCheckout");
 
 
 Route::get('/', 'HomeController@index')->name('home');

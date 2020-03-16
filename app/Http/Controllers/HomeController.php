@@ -14,9 +14,11 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function checkout()
+    public function webCheckout()
     {
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
+
+        $items = session()->get('items', []);
 
         $data = [
             'timeToLiveSeconds' => 5000,
@@ -27,12 +29,21 @@ class HomeController extends Controller
             'merchant_reference_id' => "wave-" . rand(1000000, 9999999)
         ];
 
-        $items = session()->get('items', []);
+        $hash = $this->hash($data, config('wppg.secret_key'));
 
-        return view('checkout', compact('items', 'data'));
+        return view('web-checkout', ['hash' => $hash, 'data' => $data, 'items' => $items]);
     }
 
-    public function postCheckout(Request $request)
+    public function apiCheckout()
+    {
+        $amount = collect(session()->get('items'))->pluck('amount')->sum();
+
+        $items = session()->get('items', []);
+
+        return view('api-checkout', ['amount' => $amount, 'items' => $items]);
+    }
+
+    public function postApiCheckout(Request $request)
     {
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
 
@@ -74,10 +85,9 @@ class HomeController extends Controller
         $result = json_decode($response->getBody()->getContents());
 
         if ($response->getStatusCode() === 200) {
-            return redirect(config('wppg.url') . '/authenticate?transaction_id=' . $result->transaction_id);
+            return redirect(config('wppg.redirect_url') . '/authenticate?transaction_id=' . $result->transaction_id);
         }
 
-        dd($result);
         session()->flash('error', $result->message);
 
         return redirect()->back();

@@ -37,11 +37,11 @@
         <tr>
             <td></td>
             <td>Total</td>
-            <td>{{ $data['amount'] }}</td>
+            <td>{{ $amount }}</td>
         </tr>
     </table>
 
-    <form action="{{ url('checkout') }}" method="POST" id="pww-form">
+    <form action="{{ url('api/checkout') }}" method="POST" id="pww-form">
 
         @csrf
 
