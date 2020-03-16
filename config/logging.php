@@ -55,7 +55,7 @@ return [
 
         'slack' => [
             'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
+            'url' => env('LOG_SLACK_WEBHOOK_URL', "https://hooks.slack.com/services/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"),
             'username' => 'Wave Merchant',
             'emoji' => ':boom:',
             'level' => 'debug',
