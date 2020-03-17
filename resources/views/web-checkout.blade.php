@@ -2,12 +2,6 @@
 
 @section('content')
 
-    @if(session()->has('error'))
-        <div class="alert alert-danger">
-            {{ session()->get('error') }}
-        </div>
-    @endif
-
     <h3>Checkout</h3>
 
     <table class="table table-hover table-bordered">
