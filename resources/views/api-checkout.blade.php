@@ -2,10 +2,16 @@
 
 @section('content')
 
-    @if(session()->has('error'))
-        <div class="alert alert-error">
-            <p>{{ session()->get('error') }}</p>
-        </div>
+    @if((session()->has('result')))
+        @if(property_exists(session('result'), 'errors'))
+            <div class="alert alert-danger">
+                <ol class="mb-0">
+                    @foreach(session('result')->errors->items as $error)
+                        {{ $error }}
+                    @endforeach
+                </ol>
+            </div>
+        @endif
     @endif
 
     <h3>Checkout</h3>

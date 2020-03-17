@@ -88,7 +88,7 @@ class HomeController extends Controller
             return redirect(config('wppg.redirect_url') . '/authenticate?transaction_id=' . $result->transaction_id);
         }
 
-        session()->flash('error', $result->message);
+        session()->flash('result', $result);
 
         return redirect()->back();
     }
