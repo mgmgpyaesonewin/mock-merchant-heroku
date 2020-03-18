@@ -63,33 +63,33 @@ class HomeController extends Controller
             'verify' => false
         ]);
 
-        try {
-            $response = $client->request('post', config('wppg.url') . "/payment", [
-                'headers' => [
-                    'Accept' => "application/json",
-                ],
-                'form_params' => [
-                    "timeToLiveSeconds" => $data['timeToLiveSeconds'],
-                    "merchant_id" => $data['merchant_id'],
-                    "order_id" => $data['order_id'],
-                    "merchant_reference_id" => $data['merchant_reference_id'],
-                    "frontend_result_url" => config('wppg.frontend_result_url'),
-                    "backend_result_url" => $data['backend_result_url'],
-                    "amount" => $data['amount'],
-                    "payment_description" => "Order From Wave Merchant",
-                    "merchant_name" => config('app.name'),
-                    "items" => json_encode(session()->get('items')),
-                    "hash" => $hash
-                ]
-            ]);
-        } catch (\Exception $exception) {
-            abort(500);
-        }
+        $response = $client->request('post', config('wppg.url') . "/payment", [
+            'headers' => [
+                'Accept' => "application/json",
+            ],
+            'form_params' => [
+                "timeToLiveSeconds" => $data['timeToLiveSeconds'],
+                "merchant_id" => $data['merchant_id'],
+                "order_id" => $data['order_id'],
+                "merchant_reference_id" => $data['merchant_reference_id'],
+                "frontend_result_url" => config('wppg.frontend_result_url'),
+                "backend_result_url" => $data['backend_result_url'],
+                "amount" => $data['amount'],
+                "payment_description" => "Order From Wave Merchant",
+                "merchant_name" => config('app.name'),
+                "items" => json_encode(session()->get('items')),
+                "hash" => $hash
+            ]
+        ]);
 
         $result = json_decode($response->getBody()->getContents());
 
         if ($response->getStatusCode() === 200) {
             return redirect(config('wppg.redirect_url') . '/authenticate?transaction_id=' . $result->transaction_id);
+        }
+
+        if ($response->getStatusCode() != 200) {
+            abort(503, "Service Unavailable");
         }
 
         session()->flash('result', $result);
