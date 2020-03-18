@@ -49,6 +49,10 @@
         <input type="hidden" name="hash" value="{{ $hash }}">
 
         <div class="d-flex">
+            <div class="align-self-end mr-4">
+                <a href="{{ url('/') }}" class="btn btn-primary">Home</a>
+            </div>
+
             <div class="align-self-end">
                 <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
             </div>
