@@ -21,7 +21,7 @@ class HomeController extends Controller
         $items = session()->get('items', []);
 
         $data = [
-            'timeToLiveSeconds' => 5000,
+            'timeToLiveSeconds' => config('wppg.timeout'),
             'merchant_id' => config('wppg.merchant_id'),
             'order_id' => rand(100, 999),
             'amount' => $amount,
@@ -48,7 +48,7 @@ class HomeController extends Controller
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
 
         $data = [
-            'timeToLiveSeconds' => 5000,
+            'timeToLiveSeconds' => config('wppg.timeout'),
             'merchant_id' => config('wppg.merchant_id'),
             'order_id' => rand(10000, 99999),
             'amount' => $amount,
