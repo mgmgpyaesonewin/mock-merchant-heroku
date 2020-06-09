@@ -21,7 +21,7 @@ class HomeController extends Controller
         $items = session()->get('items', []);
 
         $data = [
-            'timeToLiveSeconds' => config('wppg.timeout'),
+            'time_to_live_in_seconds' => config('wppg.timeout'),
             'merchant_id' => config('wppg.merchant_id'),
             'order_id' => rand(100, 999),
             'amount' => $amount,
@@ -48,7 +48,7 @@ class HomeController extends Controller
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
 
         $data = [
-            'timeToLiveSeconds' => config('wppg.timeout'),
+            'time_to_live_in_seconds' => config('wppg.timeout'),
             'merchant_id' => config('wppg.merchant_id'),
             'order_id' => rand(10000, 99999),
             'amount' => $amount,
@@ -68,7 +68,7 @@ class HomeController extends Controller
                 'Accept' => "application/json",
             ],
             'form_params' => [
-                "timeToLiveSeconds" => $data['timeToLiveSeconds'],
+                "time_to_live_in_seconds" => $data['time_to_live_in_seconds'],
                 "merchant_id" => $data['merchant_id'],
                 "order_id" => $data['order_id'],
                 "merchant_reference_id" => $data['merchant_reference_id'],
