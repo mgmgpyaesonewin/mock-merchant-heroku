@@ -36,7 +36,7 @@
     </table>
 
     <form action="{{ config('wppg.redirect_url') . '/payment' }}" method="POST" id="pww-form">
-        <input type="hidden" name="timeToLiveSeconds" value="{{ $data['timeToLiveSeconds'] }}">
+        <input type="hidden" name="time_to_live_in_seconds" value="{{ $data['time_to_live_in_seconds'] }}">
         <input type="hidden" name="merchant_id" value="{{ $data['merchant_id'] }}">
         <input type="hidden" name="order_id" value="{{ $data['order_id'] }}">
         <input type="hidden" name="merchant_reference_id" value="{{ $data['merchant_reference_id'] }}">

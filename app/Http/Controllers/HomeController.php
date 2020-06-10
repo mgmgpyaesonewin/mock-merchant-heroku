@@ -83,6 +83,7 @@ class HomeController extends Controller
         ]);
 
         $result = json_decode($response->getBody()->getContents());
+        dd($result);
 
         if ($response->getStatusCode() === 200) {
             return redirect(config('wppg.redirect_url') . '/authenticate?transaction_id=' . $result->transaction_id);
