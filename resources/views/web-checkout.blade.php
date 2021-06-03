@@ -47,6 +47,7 @@
         <input type="hidden" name="merchant_name" value="{{ config('app.name') }}">
         <input type="hidden" name="items" value="{{ json_encode(session()->get('items')) }}">
         <input type="hidden" name="hash" value="{{ $hash }}">
+        <msisdn-input></msisdn-input>
 
         <div class="d-flex">
             <div class="align-self-end mr-4">

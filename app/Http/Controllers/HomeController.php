@@ -86,8 +86,8 @@ class HomeController extends Controller
 
         if ($response->getStatusCode() === 200) {
             $url = config('wppg.redirect_url') . '/authenticate?transaction_id=' . $result->transaction_id;
-            if (!empty($request->get('initiator_msisdn'))) {
-                $url = $url . '&msisdn=' . $request->get('initiator_msisdn');
+            if (!empty($request->get('msisdn'))) {
+                $url = $url . '&msisdn=' . $request->get('msisdn');
             }
             return redirect($url);
         }
