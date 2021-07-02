@@ -2,10 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 Route::any("callback", function(Request $request) {
-    Log::channel('slack')->info(json_encode($request->all()));
+    Log::channel('stderr')->info(json_encode($request->all()));
 });
 
 Route::post('add-to-cart', function(Request $request) {
