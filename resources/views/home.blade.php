@@ -45,11 +45,11 @@
             <div class="card-body">
                 <h5 class="card-title">iPad Pro</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><strong>$60</strong></p>
+                <p class="card-text"><strong>$60000</strong></p>
                 <form action="{{ route('add-to-cart') }}" method="POST">
                     @csrf
                     <input type="hidden" name="name" value="iPad Pro">
-                    <input type="hidden" name="amount" value="60">
+                    <input type="hidden" name="amount" value="60000">
                     <button class="btn btn-primary">Add to Cart</button>
                 </form>
             </div>
