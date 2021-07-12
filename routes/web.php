@@ -3,9 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-Route::any("callback", function(Request $request) {
-    Log::info(json_encode($request->all()));
-});
+Route::any("callback", "HomeController@callback");
 
 Route::post('add-to-cart', function(Request $request) {
     session()->push('items',['name' => $request->name, 'amount' => $request->amount]);

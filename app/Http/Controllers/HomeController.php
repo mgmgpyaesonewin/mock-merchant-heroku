@@ -101,6 +101,16 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function callback(Request $request) {
+        $client = new Client();
+        $client->post(config('wppg.ms_team_callback_log_channel'), [
+           'json' => [
+               'type' => 'message',
+               'text' => json_encode($request->all())
+           ]
+        ]);
+    }
+
     private function hash($data, $key)
     {
         return hash_hmac('sha256', join("", $data), $key);
