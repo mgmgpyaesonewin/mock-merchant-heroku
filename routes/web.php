@@ -4,9 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-Route::any("callback", function(Request $request) {
-    Log::channel('slack')->info(json_encode($request->all()));
-});
+Route::any("callback", "HomeController@callback");
 
 Route::post('add-to-cart', function(Request $request) {
     session()->push('items',['name' => $request->name, 'amount' => $request->amount]);
