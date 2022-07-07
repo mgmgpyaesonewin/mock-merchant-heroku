@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('msisdn-input', require('./components/MsisdnInput.vue').default);
+Vue.component('payment-form', require('./components/PaymentInfoForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

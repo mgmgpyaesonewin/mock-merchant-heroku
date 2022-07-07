@@ -45,6 +45,7 @@ class HomeController extends Controller
 
     public function postApiCheckout(Request $request)
     {
+
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
 
         $data = [
@@ -91,7 +92,6 @@ class HomeController extends Controller
             }
             return redirect($url);
         }
-
         if ($response->getStatusCode() != 200) {
             abort(503, "Service Unavailable");
         }

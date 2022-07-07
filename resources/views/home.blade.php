@@ -61,4 +61,6 @@
         <a href="{{ url('api/checkout') }}" class="btn btn-outline-primary">API Checkout</a>
         <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
     </div>
+
+    <payment-form></payment-form>
 @endsection
