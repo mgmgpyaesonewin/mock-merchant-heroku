@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -101,14 +102,32 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function callback(Request $request) {
+    public function callback(Request $request)
+    {
         $client = new Client();
         $client->post(config('wppg.ms_team_callback_log_channel'), [
-           'json' => [
-               'type' => 'message',
-               'text' => json_encode($request->all())
-           ]
+            'json' => [
+                'type' => 'message',
+                'text' => json_encode($request->all())
+            ]
         ]);
+    }
+
+    public function checkStatus(Request $request)
+    {
+        $client = new Client();
+        $param = $request->all();
+        //return $param;
+        $requestParam = $client->post('https://testapi.wavemoney.io:8100/utility/tnxstatus', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'client_id' => 'cd4294830bb54597948610bee5ce8d16',
+                'client_secret' => '48199dFD1eE2471B9183bA5761b2e168'
+            ],
+            'body' => json_encode($param),
+        ]);
+        return json_decode($requestParam->getBody()->getContents());
+
     }
 
     private function hash($data, $key)

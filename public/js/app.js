@@ -1922,21 +1922,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PaymentInfoForm",
   data: function data() {
@@ -1945,22 +1930,29 @@ __webpack_require__.r(__webpack_exports__);
       trnxId: '',
       trnxDate: '',
       channel: 'pww',
-      jsonstr: '{"id":1,"name":"A green door","price":12.50,"tags":["home","green"]}',
-      json: {}
+      isShow: false,
+      json: ''
     };
   },
   methods: {
     checkStatus: function checkStatus() {
       var _this = this;
 
-      axios.post("https://testapi.wavemoney.io:8100/utility/tnxstatus").then(function (res) {
+      axios.post("/paymentInfo", {
+        "merchant": this.merchantId,
+        "referenceId": this.trnxId,
+        "txnDate": this.trnxDate,
+        "channel": "pww"
+      }).then(function (res) {
+        console.log(res);
+        _this.isShow = true;
         _this.json = res.data;
       });
     }
   },
   filters: {
     pretty: function pretty(value) {
-      return JSON.stringify(JSON.parse(value), null, 2);
+      return JSON.stringify(value, null, 2);
     }
   }
 });
@@ -37397,29 +37389,78 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container mt-3" }, [
     _c("div", { staticClass: "jumbotron" }, [
-      _c("form", [
-        _c("label", { attrs: { for: "Merchant ID" } }),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "trnx" } }, [_vm._v("Transaction ID:")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "text" } }),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "trnx" } }, [_vm._v("Transaction Date:")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "date" } }),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", on: { click: _vm.checkStatus } },
-          [_vm._v("Status Check")]
-        ),
-        _vm._v(" "),
-        _c("button", { staticClass: "btn btn-primary" }, [
-          _vm._v("Reversed Transaction")
-        ])
+      _c("label", { attrs: { for: "Merchant ID" } }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "trnx" } }, [_vm._v("Transaction ID:")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.trnxId,
+            expression: "trnxId"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.trnxId },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.trnxId = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "trnx" } }, [_vm._v("Transaction Date:")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.trnxDate,
+            expression: "trnxDate"
+          }
+        ],
+        attrs: { type: "date" },
+        domProps: { value: _vm.trnxDate },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.trnxDate = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-success", on: { click: _vm.checkStatus } },
+        [_vm._v("Status Check")]
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v("Reversed Transaction")
       ]),
       _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm._f("pretty")(_vm.json)))])
+      _c(
+        "pre",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.isShow,
+              expression: "isShow"
+            }
+          ]
+        },
+        [_vm._v(_vm._s(_vm._f("pretty")(_vm.json)))]
+      )
     ])
   ])
 }
