@@ -25,3 +25,4 @@ Route::post('api/checkout', "HomeController@postApiCheckout");
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::post('/paymentInfo', 'HomeController@checkStatus')->name('paymentInfo');
+Route::post('/reversal/transaction', 'HomeController@reversalTransaction')->name('paymentInfo');

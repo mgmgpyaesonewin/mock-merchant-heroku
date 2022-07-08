@@ -1922,6 +1922,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PaymentInfoForm",
   data: function data() {
@@ -1944,9 +1953,27 @@ __webpack_require__.r(__webpack_exports__);
         "txnDate": this.trnxDate,
         "channel": "pww"
       }).then(function (res) {
-        console.log(res);
         _this.isShow = true;
         _this.json = res.data;
+      })["catch"](function (error) {
+        _this.isShow = true;
+        _this.json = error;
+      });
+    },
+    reversal: function reversal() {
+      var _this2 = this;
+
+      axios.post("/reversal/transaction", {
+        "merchant": this.merchantId,
+        "tnxID": this.trnxId,
+        "txnDate": this.trnxDate,
+        "noti": "ON"
+      }).then(function (res) {
+        _this2.isShow = true;
+        _this2.json = res.data;
+      })["catch"](function (error) {
+        _this2.isShow = true;
+        _this2.json = error;
       });
     }
   },
@@ -37387,64 +37414,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-3" }, [
+  return _c("div", { staticClass: "pt-1" }, [
     _c("div", { staticClass: "jumbotron" }, [
-      _c("label", { attrs: { for: "Merchant ID" } }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "trnx" } }, [_vm._v("Transaction ID:")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.trnxId,
-            expression: "trnxId"
-          }
-        ],
-        attrs: { type: "text" },
-        domProps: { value: _vm.trnxId },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("label", { attrs: { for: "trnx" } }, [_vm._v("Transaction ID:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.trnxId,
+                expression: "trnxId"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.trnxId },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.trnxId = $event.target.value
+              }
             }
-            _vm.trnxId = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "trnx" } }, [_vm._v("Transaction Date:")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.trnxDate,
-            expression: "trnxDate"
-          }
-        ],
-        attrs: { type: "date" },
-        domProps: { value: _vm.trnxDate },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("label", { attrs: { for: "trnx" } }, [_vm._v("Transaction Date")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.trnxDate,
+                expression: "trnxDate"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "date" },
+            domProps: { value: _vm.trnxDate },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.trnxDate = $event.target.value
+              }
             }
-            _vm.trnxDate = $event.target.value
-          }
-        }
-      }),
+          })
+        ])
+      ]),
       _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-success", on: { click: _vm.checkStatus } },
-        [_vm._v("Status Check")]
-      ),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v("Reversed Transaction")
+      _c("div", { staticClass: "mt-4 pb-1" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-success", on: { click: _vm.checkStatus } },
+          [_vm._v("Status Check")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", on: { click: _vm.reversal } },
+          [_vm._v("Reversed Transaction")]
+        )
       ]),
       _vm._v(" "),
       _c(

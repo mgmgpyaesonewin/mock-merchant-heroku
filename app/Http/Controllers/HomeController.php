@@ -117,7 +117,7 @@ class HomeController extends Controller
     {
         $client = new Client();
         $param = $request->all();
-        //return $param;
+
         $requestParam = $client->post('https://testapi.wavemoney.io:8100/utility/tnxstatus', [
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -125,6 +125,21 @@ class HomeController extends Controller
                 'client_secret' => '48199dFD1eE2471B9183bA5761b2e168'
             ],
             'body' => json_encode($param),
+        ]);
+        return json_decode($requestParam->getBody()->getContents());
+
+    }
+
+    public function reversalTransaction(Request $request)
+    {
+        $client = new Client();
+        $requestParam = $client->post('https://testapi.wavemoney.io:8100/utility/reversal', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'client_id' => 'ID1',
+                'client_secret' => 'secret1'
+            ],
+            'body' => json_encode($request->all()),
         ]);
         return json_decode($requestParam->getBody()->getContents());
 

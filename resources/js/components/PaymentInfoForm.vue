@@ -1,13 +1,22 @@
 <template>
-    <div class="container mt-3">
+    <div class="pt-1">
         <div class="jumbotron">
-            <label for="Merchant ID"></label>
-            <label for="trnx">Transaction ID:</label>
-            <input type="text" v-model="trnxId"/>
-            <label for="trnx">Transaction Date:</label>
-            <input type="date" v-model="trnxDate"/>
-            <button class="btn btn-success" @click="checkStatus">Status Check</button>
-            <button class="btn btn-primary">Reversed Transaction</button>
+            <div class="form-row">
+                <div class="col">
+                    <label for="trnx">Transaction ID:</label>
+                    <input type="text" class="form-control" v-model="trnxId">
+                </div>
+                <div class="col">
+
+                    <label for="trnx">Transaction Date</label>
+                    <input type="date" class="form-control" v-model="trnxDate">
+                </div>
+            </div>
+            <div class="mt-4 pb-1">
+                <button class="btn btn-success" @click="checkStatus">Status Check</button>
+                <button class="btn btn-primary" @click="reversal">Reversed Transaction</button>
+
+            </div>
             <pre v-show="isShow">{{ json | pretty }}</pre>
         </div>
     </div>
@@ -28,17 +37,32 @@ export default {
     },
     methods: {
         checkStatus() {
-
             axios.post(`/paymentInfo`, {
                 "merchant": this.merchantId,
                 "referenceId": this.trnxId,
                 "txnDate": this.trnxDate,
                 "channel": "pww"
             }).then((res) => {
-                console.log(res);
-                this.isShow=true;
+                this.isShow = true;
                 this.json = res.data;
-            })
+            }).catch((error) => {
+                this.isShow = true;
+                this.json = error;
+            });
+        },
+        reversal() {
+            axios.post(`/reversal/transaction`, {
+                "merchant": this.merchantId,
+                "tnxID": this.trnxId,
+                "txnDate": this.trnxDate,
+                "noti": "ON"
+            }).then((res) => {
+                this.isShow = true;
+                this.json = res.data;
+            }).catch((error) => {
+                this.isShow = true;
+                this.json = error;
+            });
         }
     },
     filters: {
