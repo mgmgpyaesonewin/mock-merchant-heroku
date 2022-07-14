@@ -136,8 +136,8 @@ class HomeController extends Controller
         $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/reversal', [
             'headers' => [
                 'Content-Type' => 'application/json',
-                'client_id' => 'ID1',
-                'client_secret' => 'secret1'
+                'client_id' => 'cd4294830bb54597948610bee5ce8d16',
+                'client_secret' => '48199dFD1eE2471B9183bA5761b2e168'
             ],
             'body' => json_encode($request->all()),
         ]);
