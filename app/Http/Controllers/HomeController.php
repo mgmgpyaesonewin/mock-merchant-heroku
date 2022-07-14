@@ -118,7 +118,7 @@ class HomeController extends Controller
         $client = new Client();
         $param = $request->all();
 
-        $requestParam = $client->post('https://testapi.wavemoney.io:8100/utility/tnxstatus', [
+        $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/tnxstatus', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'client_id' => 'cd4294830bb54597948610bee5ce8d16',
@@ -133,7 +133,7 @@ class HomeController extends Controller
     public function reversalTransaction(Request $request)
     {
         $client = new Client();
-        $requestParam = $client->post('https://testapi.wavemoney.io:8100/utility/reversal', [
+        $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/reversal', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'client_id' => 'ID1',
