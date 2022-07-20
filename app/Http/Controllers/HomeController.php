@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -118,30 +119,61 @@ class HomeController extends Controller
         $client = new Client();
         $param = $request->all();
 
-        $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/tnxstatus', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'client_id' => 'cd4294830bb54597948610bee5ce8d16',
-                'client_secret' => '48199dFD1eE2471B9183bA5761b2e168'
-            ],
-            'body' => json_encode($param),
-        ]);
-        return json_decode($requestParam->getBody()->getContents());
+        Log::info(print_r($param, true));
+
+        try {
+            $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/tnxstatus', [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'client_id' => 'cd4294830bb54597948610bee5ce8d16',
+                    'client_secret' => '48199dFD1eE2471B9183bA5761b2e168'
+                ],
+                'body' => json_encode($param),
+            ]);
+            return json_decode($requestParam->getBody()->getContents());
+        } catch (RequestException $exception) {
+            $response = $exception->getResponse();
+            $statusCode = $response->getStatusCode();
+
+            return [
+                'status' => $statusCode,
+                'data' => [
+                    'message' => json_decode($response->getBody()->getContents()),
+                ]
+            ];
+        }
 
     }
 
     public function reversalTransaction(Request $request)
     {
         $client = new Client();
-        $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/reversal', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'client_id' => 'cd4294830bb54597948610bee5ce8d16',
-                'client_secret' => '48199dFD1eE2471B9183bA5761b2e168'
-            ],
-            'body' => json_encode($request->all()),
-        ]);
-        return json_decode($requestParam->getBody()->getContents());
+        $param = $request->all();
+
+        Log::info(print_r($param, true));
+
+        try {
+            $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/reversal', [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'client_id' => 'cd4294830bb54597948610bee5ce8d16',
+                    'client_secret' => '48199dFD1eE2471B9183bA5761b2e168'
+                ],
+                'body' => json_encode($request->all()),
+            ]);
+            return json_decode($requestParam->getBody()->getContents());
+        } catch (RequestException $exception) {
+
+            $response = $exception->getResponse();
+            $statusCode = $response->getStatusCode();
+
+            return [
+                'status' => $statusCode,
+                'data' => [
+                    'message' => json_decode($response->getBody()->getContents()),
+                ]
+            ];
+        }
 
     }
 

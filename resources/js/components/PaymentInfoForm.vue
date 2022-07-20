@@ -54,8 +54,10 @@ export default {
             axios.post(`/reversal/transaction`, {
                 "merchant": this.merchantId,
                 "tnxID": this.trnxId,
-                "txnDate": this.trnxDate,
-                "noti": "ON"
+                "tnxDate": this.trnxDate,
+                "noti": "ON",
+                "bonus": "Y",
+                "fee": "Y"
             }).then((res) => {
                 this.isShow = true;
                 this.json = res.data;

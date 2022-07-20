@@ -1935,7 +1935,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "PaymentInfoForm",
   data: function data() {
     return {
-      merchantId: '9652554',
+      merchantId: '9262432',
       trnxId: '',
       trnxDate: '',
       channel: 'pww',
@@ -1966,8 +1966,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/reversal/transaction", {
         "merchant": this.merchantId,
         "tnxID": this.trnxId,
-        "txnDate": this.trnxDate,
-        "noti": "ON"
+        "tnxDate": this.trnxDate,
+        "noti": "ON",
+        "bonus": "Y",
+        "fee": "Y"
       }).then(function (res) {
         _this2.isShow = true;
         _this2.json = res.data;
@@ -49954,8 +49956,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/maymyatmon/Documents/code/wppg-mock-merchant-website/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/maymyatmon/Documents/code/wppg-mock-merchant-website/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/mock-merchant-heroku/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/mock-merchant-heroku/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
