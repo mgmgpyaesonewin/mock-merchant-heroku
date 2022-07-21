@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -148,9 +146,6 @@ class HomeController extends Controller
     public function reversalTransaction(Request $request)
     {
         $client = new Client();
-        $param = $request->all();
-
-        Log::info(print_r($param, true));
 
         try {
             $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/reversal', [
@@ -161,7 +156,8 @@ class HomeController extends Controller
                 ],
                 'body' => json_encode($request->all()),
             ]);
-            return json_decode($requestParam->getBody()->getContents());
+
+            return $requestParam->getBody()->getContents();
         } catch (RequestException $exception) {
 
             $response = $exception->getResponse();
