@@ -120,7 +120,7 @@ class HomeController extends Controller
         Log::info(print_r($param, true));
 
         try {
-            $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/tnxstatus', [
+            $requestParam = $client->post('https://preprodnewapi.wavemoney.io:8112/utility/tnxstatus', [
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'client_id' => 'cd4294830bb54597948610bee5ce8d16',
@@ -148,7 +148,7 @@ class HomeController extends Controller
         $client = new Client();
 
         try {
-            $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/reversal', [
+            $requestParam = $client->post('https://preprodnewapi.wavemoney.io:8112/utility/reversal', [
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'client_id' => 'cd4294830bb54597948610bee5ce8d16',
