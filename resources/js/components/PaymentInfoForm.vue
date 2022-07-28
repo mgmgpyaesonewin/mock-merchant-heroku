@@ -27,7 +27,7 @@ export default {
     name: "PaymentInfoForm",
     data() {
         return {
-            merchantId: '9262431',
+            merchantId: '96980314',
             trnxId: '',
             trnxDate: '',
             channel: 'pww',
