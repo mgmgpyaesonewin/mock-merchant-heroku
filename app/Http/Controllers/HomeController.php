@@ -123,8 +123,13 @@ class HomeController extends Controller
             $requestParam = $client->post('https://preprodnewapi.wavemoney.io:8112/utility/tnxstatus', [
                 'headers' => [
                     'Content-Type' => 'application/json',
+<<<<<<< Updated upstream
                     'client_id' => '6e1bf16eeb6c4616afe0dc7e029f4b02',
                     'client_secret' => '24D558531C994B8EbaC04dc87d7699C2'
+=======
+                    'client_id' => '85934f0ae44747d4bf8b99061b1db9e9',
+                    'client_secret' => '5B86d975730749feb5E8853567c56d09'
+>>>>>>> Stashed changes
                 ],
                 'body' => json_encode($param),
             ]);
@@ -151,8 +156,13 @@ class HomeController extends Controller
             $requestParam = $client->post('https://preprodnewapi.wavemoney.io:8112/utility/reversal', [
                 'headers' => [
                     'Content-Type' => 'application/json',
+<<<<<<< Updated upstream
                     'client_id' => '6e1bf16eeb6c4616afe0dc7e029f4b02',
                     'client_secret' => '24D558531C994B8EbaC04dc87d7699C2'
+=======
+                    'client_id' => '85934f0ae44747d4bf8b99061b1db9e9',
+                    'client_secret' => '5B86d975730749feb5E8853567c56d09'
+>>>>>>> Stashed changes
                 ],
                 'body' => json_encode($request->all()),
             ]);

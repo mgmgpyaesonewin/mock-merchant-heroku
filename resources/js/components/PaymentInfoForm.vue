@@ -27,7 +27,11 @@ export default {
     name: "PaymentInfoForm",
     data() {
         return {
+<<<<<<< Updated upstream
             merchantId: '96980314',
+=======
+            merchantId: '12594227',
+>>>>>>> Stashed changes
             trnxId: '',
             trnxDate: '',
             channel: 'pww',
