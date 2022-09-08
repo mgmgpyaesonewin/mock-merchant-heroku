@@ -120,11 +120,11 @@ class HomeController extends Controller
         Log::info(print_r($param, true));
 
         try {
-            $requestParam = $client->post('https://preprodnewapi.wavemoney.io:8112/utility/tnxstatus', [
+            $requestParam = $client->post('https://prodapi.wavemoney.io:8100/utility/tnxstatus', [
                 'headers' => [
                     'Content-Type' => 'application/json',
-                    'client_id' => '6e1bf16eeb6c4616afe0dc7e029f4b02',
-                    'client_secret' => '24D558531C994B8EbaC04dc87d7699C2'
+                    'client_id' => '813d30e919e24d6fb9c264c831bc17e9',
+                    'client_secret' => 'efDf94ee1Ac2432789538e8852124c02'
                 ],
                 'body' => json_encode($param),
             ]);
@@ -148,11 +148,11 @@ class HomeController extends Controller
         $client = new Client();
 
         try {
-            $requestParam = $client->post('https://preprodnewapi.wavemoney.io:8112/utility/reversal', [
+            $requestParam = $client->post('https://prodapi.wavemoney.io:8100/utility/reversal', [
                 'headers' => [
                     'Content-Type' => 'application/json',
-                    'client_id' => '6e1bf16eeb6c4616afe0dc7e029f4b02',
-                    'client_secret' => '24D558531C994B8EbaC04dc87d7699C2'
+                    'client_id' => '813d30e919e24d6fb9c264c831bc17e9',
+                    'client_secret' => 'efDf94ee1Ac2432789538e8852124c02'
                 ],
                 'body' => json_encode($request->all()),
             ]);
