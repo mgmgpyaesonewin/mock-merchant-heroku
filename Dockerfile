@@ -1,5 +1,7 @@
 FROM richarvey/nginx-php-fpm:latest
 
+RUN echo "Asia/Yangon" > /etc/TZ
+
 COPY . .
 
 # Image config
