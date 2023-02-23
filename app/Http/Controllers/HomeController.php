@@ -6,8 +6,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class HomeController extends Controller
 {
@@ -36,7 +40,7 @@ class HomeController extends Controller
         return view('web-checkout', ['hash' => $hash, 'data' => $data, 'items' => $items]);
     }
 
-    public function apiCheckout()
+    public function apiCheckout(): Factory|\Illuminate\Contracts\View\View|Application
     {
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
 
@@ -46,9 +50,13 @@ class HomeController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector
      * @throws GuzzleException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function postApiCheckout(Request $request)
+    public function postApiCheckout(Request $request): Redirector|RedirectResponse|Application
     {
 
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
@@ -118,7 +126,7 @@ class HomeController extends Controller
     }
 
 
-    private function hash($data, $key): string
+    public function hash($data, $key): string
     {
         return hash_hmac('sha256', join("", $data), $key);
     }
