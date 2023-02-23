@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
 
@@ -14,57 +14,57 @@
         @endif
     @endif
 
-    <h3>Checkout</h3>
-
-    <table class="table table-hover table-bordered">
-        <thead>
+    <div class="p-5 bg-white border rounded-3">
+        <h3>Checkout</h3>
+        <table class="table table-hover table-bordered">
+            <thead>
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Quality</th>
                 <th scope="col">Amount</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
-        @forelse($items as $item)
+            <tbody>
+            @forelse($items as $item)
+                <tr>
+                    <td>{{ $item['name'] }}</td>
+                    <td>1</td>
+                    <td>{{ $item['amount'] }}</td>
+                </tr>
+
+            @empty
+                <tr>
+                    <td colspan="3">No Items in Cart</td>
+                </tr>
+            @endforelse
+            </tbody>
+
             <tr>
-                <td>{{ $item['name'] }}</td>
-                <td>1</td>
-                <td>{{ $item['amount'] }}</td>
+                <td></td>
+                <td>Total</td>
+                <td>{{ $amount }}</td>
             </tr>
+        </table>
+        <form action="{{ url('api/checkout') }}" method="POST" id="pww-form">
+            @csrf
+            <msisdn-input></msisdn-input>
 
-        @empty
-            <tr>
-                <td colspan="3">No Items in Cart</td>
-            </tr>
-        @endforelse
-        </tbody>
+            <div class="d-flex">
+                <div class="align-self-end mr-4">
+                    <a href="{{ url('/') }}" class="btn btn-primary">Home</a>
+                </div>
 
-        <tr>
-            <td></td>
-            <td>Total</td>
-            <td>{{ $amount }}</td>
-        </tr>
-    </table>
+                <div class="align-self-end">
+                    <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
+                </div>
 
-    <form action="{{ url('api/checkout') }}" method="POST" id="pww-form">
-        @csrf
-        <msisdn-input></msisdn-input>
-
-        <div class="d-flex">
-            <div class="align-self-end mr-4">
-                <a href="{{ url('/') }}" class="btn btn-primary">Home</a>
+                <div class="ml-4">
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('pww-form').submit();">
+                        <img src="{{ asset('pww.svg') }}" alt="Pay with Wave Logo" class="pww-logo">
+                    </a>
+                </div>
             </div>
-
-            <div class="align-self-end">
-                <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
-            </div>
-
-            <div class="ml-4">
-                <a href="#" onclick="event.preventDefault(); document.getElementById('pww-form').submit();">
-                    <img src="{{ asset('pww.svg') }}" alt="Pay with Wave Logo" class="pww-logo">
-                </a>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 @endsection

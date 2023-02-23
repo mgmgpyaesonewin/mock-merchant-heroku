@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
     <h3>Wave Merchant Website</h3>
@@ -9,7 +9,7 @@
         </div>
     @endif
 
-    <div class="card-deck">
+    <div class="card-group">
         <div class="card">
             <img src="{{ asset('mac.png') }}" class="card-img-top" alt="Macbook Pro">
             <div class="card-body">
@@ -62,5 +62,5 @@
         <a href="{{ url('clear-cart') }}" class="btn btn-outline-danger">Clear Cart</a>
     </div>
 
-    <payment-form></payment-form>
+    <payment-from></payment-from>
 @endsection

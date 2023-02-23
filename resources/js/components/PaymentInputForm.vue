@@ -1,24 +1,20 @@
 <template>
-    <div class="pt-1">
-        <div class="jumbotron">
-            <div class="form-row">
-                <div class="col">
-                    <label for="trnx">Transaction ID:</label>
-                    <input type="text" class="form-control" v-model="trnxId">
-                </div>
-                <div class="col">
-
-                    <label for="trnx">Transaction Date</label>
-                    <input type="date" class="form-control" v-model="trnxDate">
-                </div>
+    <div class="p-5 my-4 bg-white rounded-3">
+        <div class="form-row">
+            <div class="col">
+                <label for="trnx">Transaction ID:</label>
+                <input type="text" class="form-control" v-model="trnxId">
             </div>
-            <div class="mt-4 pb-1">
-                <button class="btn btn-success" @click="checkStatus">Status Check</button>
-                <button class="btn btn-primary" @click="reversal">Reversed Transaction</button>
-
+            <div class="col">
+                <label for="trnx">Transaction Date</label>
+                <input type="date" class="form-control" v-model="trnxDate">
             </div>
-            <pre v-show="isShow">{{ json | pretty }}</pre>
         </div>
+        <div class="mt-4 pb-1">
+            <button class="btn btn-success" @click="checkStatus">Status Check</button>
+            <button class="btn btn-primary" @click="reversal">Reversed Transaction</button>
+        </div>
+        <pre v-show="isShow">{{ prettyJson }}</pre>
     </div>
 </template>
 
@@ -67,9 +63,9 @@ export default {
             });
         }
     },
-    filters: {
-        pretty: function (value) {
-            return JSON.stringify(value, null, 2);
+    computed: {
+        prettyJson() {
+            return JSON.stringify(this.json, null, 2);
         }
     }
 }

@@ -3,18 +3,24 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): Factory|View|Application
     {
         return view('home');
     }
 
-    public function webCheckout()
+    public function webCheckout(): Factory|View|Application
     {
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
 
@@ -34,7 +40,7 @@ class HomeController extends Controller
         return view('web-checkout', ['hash' => $hash, 'data' => $data, 'items' => $items]);
     }
 
-    public function apiCheckout()
+    public function apiCheckout(): Factory|\Illuminate\Contracts\View\View|Application
     {
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
 
@@ -43,7 +49,14 @@ class HomeController extends Controller
         return view('api-checkout', ['amount' => $amount, 'items' => $items]);
     }
 
-    public function postApiCheckout(Request $request)
+    /**
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector
+     * @throws GuzzleException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function postApiCheckout(Request $request): Redirector|RedirectResponse|Application
     {
 
         $amount = collect(session()->get('items'))->pluck('amount')->sum();
@@ -112,68 +125,8 @@ class HomeController extends Controller
         ]);
     }
 
-    public function checkStatus(Request $request)
-    {
-        $client = new Client();
-        $param = $request->all();
 
-        Log::info(print_r($param, true));
-
-        try {
-            $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/tnxstatus', [
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                    'client_id' => '5ed1d57b95b6420ca6b81bf37455a898',
-                    'client_secret' => '966226457A564dcC921a04d09Ba32a77'
-                ],
-                'body' => json_encode($param),
-            ]);
-            return json_decode($requestParam->getBody()->getContents());
-        } catch (RequestException $exception) {
-            $response = $exception->getResponse();
-            $statusCode = $response->getStatusCode();
-
-            return [
-                'status' => $statusCode,
-                'data' => [
-                    'message' => json_decode($response->getBody()->getContents()),
-                ]
-            ];
-        }
-
-    }
-
-    public function reversalTransaction(Request $request)
-    {
-        $client = new Client();
-
-        try {
-            $requestParam = $client->post('https://preprodapi.wavemoney.io:8105/utility/reversal', [
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                    'client_id' => '5ed1d57b95b6420ca6b81bf37455a898',
-                    'client_secret' => '966226457A564dcC921a04d09Ba32a77'
-                ],
-                'body' => json_encode($request->all()),
-            ]);
-
-            return $requestParam->getBody()->getContents();
-        } catch (RequestException $exception) {
-
-            $response = $exception->getResponse();
-            $statusCode = $response->getStatusCode();
-
-            return [
-                'status' => $statusCode,
-                'data' => [
-                    'message' => json_decode($response->getBody()->getContents()),
-                ]
-            ];
-        }
-
-    }
-
-    private function hash($data, $key)
+    public function hash($data, $key): string
     {
         return hash_hmac('sha256', join("", $data), $key);
     }
