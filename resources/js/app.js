@@ -19,9 +19,12 @@ const app = createApp({});
 import ExampleComponent from './components/ExampleComponent.vue';
 import PaymentInputForm from './components/PaymentInputForm.vue';
 import MsisdnInput from './components/MsisdnInput.vue';
+import AdditionalFields from './components/AdditionalFields.vue';
+
 app.component('example-component', ExampleComponent);
 app.component('payment-from', PaymentInputForm);
 app.component('msisdn-input', MsisdnInput);
+app.component('additional-fields', AdditionalFields);
 
 /**
  * The following block of code may be used to automatically register your

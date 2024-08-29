@@ -49,6 +49,7 @@
         <form action="{{ url('api/checkout') }}" method="POST" id="pww-form">
             @csrf
             <msisdn-input></msisdn-input>
+            <additional-fields></additional-fields>
 
             <div class="d-flex">
                 <div class="align-self-end mr-4">

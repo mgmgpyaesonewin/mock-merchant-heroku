@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -92,7 +93,10 @@ class HomeController extends Controller
                 "payment_description" => "Order From Wave Merchant",
                 "merchant_name" => config('app.name'),
                 "items" => json_encode(session()->get('items')),
-                "hash" => $hash
+                "hash" => $hash,
+                'additional_field_3' => $request->get('additional_field_3', ''),
+                'additional_field_4' => $request->get('additional_field_4', ''),
+                'additional_field_5' => $request->get('additional_field_5', ''),
             ]
         ]);
 
@@ -106,6 +110,7 @@ class HomeController extends Controller
             return redirect($url);
         }
         if ($response->getStatusCode() != 200) {
+            Log::info('Error: ' . $response->getBody()->getContents());
             abort(503, "Service Unavailable");
         }
 
@@ -120,7 +125,24 @@ class HomeController extends Controller
         $client->post(config('wppg.ms_team_callback_log_channel'), [
             'json' => [
                 'type' => 'message',
-                'text' => json_encode($request->all())
+                'text' => json_encode($request->all()),
+                'attachments' => [
+                    [
+                        'contentType' => 'application/vnd.microsoft.card.adaptive',
+                        'content' => [
+                            '$schema' => 'http://adaptivecards.io/schemas/adaptive-card.json',
+                            'type' => 'AdaptiveCard',
+                            'version' => '1.2',
+                            'body' => [
+                                [
+                                    'type' => 'TextBlock',
+                                    'text' => "```json\n" . json_encode($request->all(), JSON_PRETTY_PRINT) . "\n```",
+                                    'wrap' => true
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
             ]
         ]);
     }
