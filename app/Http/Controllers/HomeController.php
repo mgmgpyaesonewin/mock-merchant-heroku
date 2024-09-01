@@ -121,31 +121,47 @@ class HomeController extends Controller
 
     public function callback(Request $request)
     {
+        $data = $request->all();
+        $properties = [];
+
+        foreach ($data as $key => $value) {
+            $properties[] = [
+                "title" => ucfirst(str_replace('_', ' ', $key)) . ":",
+                "value" => $value ?? 'N/A'
+            ];
+        }
+
         $client = new Client();
         $client->post(config('wppg.ms_team_callback_log_channel'), [
             'json' => [
                 'type' => 'message',
-                'text' => json_encode($request->all()),
                 'attachments' => [
                     [
                         'contentType' => 'application/vnd.microsoft.card.adaptive',
+                        "contentUrl" => null,
                         'content' => [
                             '$schema' => 'http://adaptivecards.io/schemas/adaptive-card.json',
                             'type' => 'AdaptiveCard',
                             'version' => '1.2',
                             'body' => [
                                 [
-                                    'type' => 'TextBlock',
-                                    'text' => "```json\n" . json_encode($request->all(), JSON_PRETTY_PRINT) . "\n```",
-                                    'wrap' => true
+                                    "type" => "TextBlock",
+                                    "size" => "Medium",
+                                    "weight" => "Bolder",
+                                    "text" => "Order Details from Merchant"
+                                ],
+                                [
+                                    "type" => "FactSet",
+                                    "facts" => $properties
                                 ]
-                            ]
+                            ],
                         ]
                     ]
                 ]
             ]
         ]);
     }
+
 
 
     public function hash($data, $key): string
