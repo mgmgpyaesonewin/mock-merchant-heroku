@@ -3,6 +3,7 @@
         <label :for="`additional_field_${field}`" class="form-label">Additional Field {{ field }}</label>
         <input
             type="text"
+            :name="`additional_field_${field}`"
             class="form-control"
             :id="`additional_field_${field}`"
             :placeholder="`Enter additional info for Field ${field} here`"
