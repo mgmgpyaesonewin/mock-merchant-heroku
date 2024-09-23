@@ -1,0 +1,80 @@
+{
+  "uuid": "a3f5cf88-f015-4c99-8a40-f8695e911ceb",
+  "lastMigration": 32,
+  "name": "Mockoon api",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "1aae71d6-55b3-4696-806b-7c69e5be69e5",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "payment",
+      "responses": [
+        {
+          "uuid": "f648b156-6ed6-451f-a321-e6b371b124e1",
+          "body": "{\n    \"message\": \"success\",\n    \"transaction_id\": \"eyJpdiI6ImpKckpidkM1cHpvQURpdmREaE1iNnc9PSIsInZhbHVlIjoiaGdYQ2JDRG1zMDkwNzJZUFd2Mjhhdz09IiwibWFjIjoiNzAxYjBkM2ZhZGQ0Zjk5ZmNlM2M1YmQyODEwMWJlMTM5NTE2NjIwZDk2ZTYzYjRhMTllYWUxMjhhYmViZDMwMyJ9\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "1aae71d6-55b3-4696-806b-7c69e5be69e5"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
