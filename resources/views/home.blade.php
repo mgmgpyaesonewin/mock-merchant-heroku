@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3>Wave Merchant Website</h3>
+    <h3>Wave Merchant Website - Mock Merchant Data</h3>
 
     @if (flash()->message)
         <div class="{{ flash()->class }}">
@@ -9,50 +9,39 @@
         </div>
     @endif
 
-    <div class="card-group">
-        <div class="card">
-            <img src="{{ asset('mac.png') }}" class="card-img-top" alt="Macbook Pro">
-            <div class="card-body">
-                <h5 class="card-title">Macbook Pro</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><strong>$50</strong></p>
-                <form action="{{ route('add-to-cart') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="name" value="Macbook Pro">
-                    <input type="hidden" name="amount" value="50">
-                    <button class="btn btn-primary">Add to Cart</button>
-                </form>
-            </div>
-        </div>
+    @php
+        $mockItems = [
+            ['name' => 'Macbook Pro', 'amount' => 50],
+            ['name' => 'iPad Not Pro', 'amount' => 30],
+            ['name' => 'iPad Pro', 'amount' => 60],
+            ['name' => 'Test Item 1', 'amount' => 20.01],
+            ['name' => 'Test Item 2', 'amount' => 20.10],
+            ['name' => 'Test Item 3', 'amount' => 20],
+            ['name' => 'Test Item 4', 'amount' => 20.499],
+            ['name' => 'Test Item 4', 'amount' => 20.444]
+        ];
+    @endphp
 
-        <div class="card">
-            <img src="{{ asset('ipad.webp') }}" class="card-img-top" alt="Macbook Pro">
-            <div class="card-body">
-                <h5 class="card-title">iPad Not Pro</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><strong>$30</strong></p>
-                <form action="{{ route('add-to-cart') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="name" value="iPad Not Pro">
-                    <input type="hidden" name="amount" value="30">
-                    <button class="btn btn-primary">Add to Cart</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="{{ asset('ipad.webp') }}" class="card-img-top" alt="Macbook Pro" >
-            <div class="card-body">
-                <h5 class="card-title">iPad Pro</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><strong>$60</strong></p>
-                <form action="{{ route('add-to-cart') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="name" value="iPad Pro">
-                    <input type="hidden" name="amount" value="60">
-                    <button class="btn btn-primary">Add to Cart</button>
-                </form>
-            </div>
+    <div class="container">
+        <div class="row">
+            @foreach ($mockItems as $item)
+                <div class="col-md-4 col-lg-3">
+                    <div class="card mb-4">
+                        <img src="{{ asset('mac.png') }}" class="card-img-top" alt="{{ $item['name'] }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $item['name'] }}</h5>
+                            <p class="card-text">This is a test item: {{ $item['name'] }}.</p>
+                            <p class="card-text"><strong>${{ $item['amount'] }}</strong></p>
+                            <form action="{{ route('add-to-cart') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="name" value="{{ $item['name'] }}">
+                                <input type="hidden" name="amount" value="{{ $item['amount'] }}">
+                                <button class="btn btn-primary">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 
